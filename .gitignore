@@ -1,2 +1,9 @@
+<<<<<<< HEAD
+/.idea/
+/.bsp/
+/target/
+/project/
+=======
 *.class
 *.log
+>>>>>>> 940d4163801d2dd7c80134cb5f8bc1d98602ff8d
