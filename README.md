@@ -1,3 +1,24 @@
+## Qdot
+
+This project is new and under initial development. 
+Qdot is a Scala 3 library (QASM-transpiler) that allows Scala/Java developers 
+write native quantum/hybrid programs.
+
+## Motivations
+1. Compile-time correctness. This becomes particularly important as size of hybrid programs increases,
+Qdot aims to leverage Scala's robust type system for compile time checks.
+
+
+2. Run hybrid programs on JVM directly, by sending transpiled QASM to quantum computers  directly through REST API.
+Basic classical simulation will be implemented. Optimization will be minimal.
+
+
+3. Allow concise, expressive and intuitive quantum/hybrid programs by leveraging Scala syntax and it's static type system.
+
+
+For any question please ask in #qdot channel in http://discord.unitary.fund/
+
+
 ## sbt project compiled with Scala 3
 
 ### Usage
