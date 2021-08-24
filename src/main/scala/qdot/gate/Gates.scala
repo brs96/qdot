@@ -1,32 +1,39 @@
 package qdot.gate
 
-import cats.arrow._
+import cats.arrow.*
 
-trait Qubit[-N <: Int] {
+import scala.compiletime.ops.int.*
+import scala.compiletime.package$package.{constValue, error}
 
-  def hadamard(wire: Int): Qubit[N]
+
+trait Qubit[N <: Int] {
+
+  inline def hadamard(inline wire: Int): Qubit[N]
 
   def cnot(wire1: Int, wire2: Int): Qubit[N]
 
 }
 
-class SimulatedQubit[-N <: Int](m: List[List[BigDecimal]]) extends Qubit[N] {
+class SimulatedQubit[N <: Int](m: List[List[BigDecimal]]) extends Qubit[N] {
 
   val matrix: List[List[BigDecimal]] = m
 
-  override def hadamard(wire: Int): SimulatedQubit[N] = SimulatedQubit(matrix.map(list => list.map(decimal => decimal + 1)))
+  inline def hadamard(inline wire: Int): SimulatedQubit[N] = {
+    inline if (wire < valueOf[N]) SimulatedQubit(matrix.map(list => list.map(decimal => decimal + 1))) else error("Compile time dimension error")
+  }
 
-  override def cnot(wire1: Int, wire2: Int): SimulatedQubit[N] = SimulatedQubit(matrix.map(list => list.map(decimal => decimal + 1)))
+  def cnot(wire1: Int, wire2: Int): SimulatedQubit[N] = SimulatedQubit(matrix.map(list => list.map(decimal => decimal + 1)))
 
 }
 
-class QASMSet[-N <: Int](qasmStr: String) extends Qubit[N] {
+class QASMSet[N <: Int](qasmStr: String) extends Qubit[N] {
 
   val QASMStr: String = qasmStr
 
-  override def hadamard(wire: Int): QASMSet[N] = QASMSet[N](QASMStr ++ s"h q[$wire];\n")
+  inline def hadamard(inline wire: Int): QASMSet[N] = QASMSet[N](QASMStr ++ s"h q[$wire];\n")
 
-  override def cnot(wire1: Int, wire2: Int): QASMSet[N] = QASMSet[N](QASMStr ++ s"cnot q[$wire1] q[$wire2];\n")
+  def cnot(wire1: Int, wire2: Int): QASMSet[N] = QASMSet[N](QASMStr ++ s"cnot q[$wire1] q[$wire2];\n")
+
 }
 
 object QASMSet {
