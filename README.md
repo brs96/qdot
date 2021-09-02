@@ -27,3 +27,7 @@ This is a normal sbt project. You can compile code with `sbt compile`, run it wi
 
 For more information on the sbt-dotty plugin, see the
 [scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+
+To run written quantum programs on IBMQ, you will need to have Python and Qiskit install
+Install qiskit with `pip install qiskit`, use a new separate environment if you wish (e.g `conda create -n ENV_NAME python=3` and `conda activate ENV_NAME`)
+You need to provide you IBMQ api token to our `scala.qdot.backend.IBMQBackend.submitQASMToIBMQ` method.

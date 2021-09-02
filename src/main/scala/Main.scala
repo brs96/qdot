@@ -1,16 +1,26 @@
 //package qdot
+import qdot.backend.IBMQBackend
+import qdot.circuit.Circuit
+import qdot.gate
 import qdot.gate.*
+
+import java.util.Properties
+import javax.script.ScriptEngineManager
+import java.io.{BufferedReader, InputStreamReader}
 
 @main def hello: Unit = {
 
-  //val circ: Qubit[2] => Qubit[2] = _.hadamard(0).cnot(2, 3)
+  val circuit1 = new Circuit[2](List())
+  val superpos = circuit1.add(Hadamard[2](0))
+  print(superpos.gateSeq)
+  val bellState = superpos.add(CNOT[2](0, 1))
+  print(bellState.gateSeq)
+  //val invalid = bellState.add(CNOT[2](2,3))
 
-  val init: SimulatedQubit[2] = SimulatedQubit(List(List(0.1, 0.2)))
-  val state = init.hadamard(1).cnot(2, 3)
-  print(state.matrix)
-  print("\n")
+//  val ibmq = new IBMQBackend
+//  val apiStr = "123"
+//  val qasmFile = "src/main/qasm/BellState.qasm"
+//  val result = ibmq.submitQASMToIBMQ(apiStr, qasmFile)
+//  print(result)
 
-
-  val qasmInstructions: QASMSet[2] = QASMSet.init(2).hadamard(0).cnot(2, 3)
-  print(qasmInstructions.QASMStr)
 }

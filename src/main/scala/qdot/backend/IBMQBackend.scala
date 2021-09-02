@@ -6,9 +6,9 @@ class IBMQBackend {
 
   val runtime = Runtime.getRuntime
 
-  def submitQASMToIBMQ(apiToken: String): String = {
+  def submitQASMToIBMQ(apiToken: String, qasmFile: String): String = {
 
-    val process: Process = runtime.exec(s"python src/main/python/submitQASMToIBMQ.py ${apiToken}")
+    val process: Process = runtime.exec(s"python src/main/python/submitQASMToIBMQ.py ${apiToken} ${qasmFile}")
     val stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()))
     val stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()))
 

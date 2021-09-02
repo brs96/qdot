@@ -3,9 +3,11 @@ import sys
 
 def main():
     args = sys.argv[1:]
+    token = args[0]
+    inputFile = args[1]
 
-    provider = IBMQ.enable_account(args[0])
-    qc = QuantumCircuit.from_qasm_file("src/main/scala/qdot/gate/BellStateQASM.qasm")
+    provider = IBMQ.enable_account(token)
+    qc = QuantumCircuit.from_qasm_file(inputFile)
     backend = Aer.get_backend("qasm_simulator")
 
     job = execute(qc, backend)
