@@ -1,6 +1,5 @@
 package qdot.gate
 
-trait Gate {
-  def name: String
+trait Gate extends Op {
   def wires: List[Int]
 }

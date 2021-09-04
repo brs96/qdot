@@ -1,6 +1,7 @@
 package qdot.compiler
 
 import qdot.circuit.Circuit
+import qdot.gate.{Gate, Measurement, Op}
 
 import java.io.{File, FileWriter, PrintWriter}
 import scala.quoted.Type
@@ -12,8 +13,6 @@ object QASMCompiler {
     val init = initQASM(circuit)
     writer.write(init)
     parseCircuit(circuit, writer)
-    //TODO Impl measurement
-    writer.write("measure q[0] -> c[0];\nmeasure q[1] -> c[1];")
     writer.close()
   }
 
@@ -24,13 +23,16 @@ object QASMCompiler {
   }
 
   def parseCircuit(circuit: Circuit[_], writer: PrintWriter) = {
-    circuit.gateSeq.map(gate => {
-      writer.write(s"${gate.name} ${parseWires(gate.wires)}")
+    circuit.opSeq.map(op => {
+      writer.write(s"${op.name} ${parseWires(op)}")
     })
   }
 
-  def parseWires(wires: List[Int]): String = {
-    wires.foldLeft("")((wireSeq, nextWire) => wireSeq ++ s"q[$nextWire],").dropRight(1) ++ ";\n"
+  def parseWires(op: Op): String = {
+    op match {
+      case m: Measurement => s"q[${m.wire}] -> c[${m.wire}];\n"
+      case g: Gate => g.wires.foldLeft("")((wireSeq, nextWire) => wireSeq ++ s"q[$nextWire],").dropRight(1) ++ ";\n"
+    }
   }
 
 }

@@ -14,8 +14,9 @@ import java.io.{BufferedReader, InputStreamReader}
   val circuit1 = new Circuit[2](List())
   val superpos = circuit1.add(Hadamard[2](0))
   val bellState = superpos.add(CNOT[2](0, 1))
+  val bellStateMeasured = bellState.add(Measurement(0)).add(Measurement(1))
   //val invalid = bellState.add(CNOT[2](2,3))
-  QASMCompiler.toQASM(bellState)
+  QASMCompiler.toQASM(bellStateMeasured)
 
   val ibmq = new IBMQBackend
   val apiStr = "123"

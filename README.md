@@ -9,7 +9,7 @@ write native quantum/hybrid programs.
 Qdot aims to leverage Scala's robust type system for compile time checks.
 
 
-2. Run hybrid programs on JVM directly, by sending transpiled QASM to quantum computers  directly through REST API.
+2. Run hybrid programs on JVM directly, by sending transpiled QASM to quantum computers directly through IBM qiskit python.
 Basic classical simulation will be implemented. Optimization will be minimal.
 
 

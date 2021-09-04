@@ -1,12 +1,12 @@
 package qdot.circuit
 
-import qdot.gate.{Gate, Qubit}
+import qdot.gate.{Gate, Op, Qubit}
 
-class Circuit[N <: Int](gates: List[Gate]) {
+class Circuit[N <: Int](ops: List[Op]) {
 
-  val gateSeq: List[Gate] = gates
+  val opSeq: List[Op] = ops
 
-  def add(gate: Gate): Circuit[N] = Circuit[N](gateSeq ++ List(gate))
+  def add(op: Op): Circuit[N] = Circuit[N](opSeq ++ List(op))
 
 }
 
