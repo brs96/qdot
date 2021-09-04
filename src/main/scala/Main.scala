@@ -1,6 +1,7 @@
 //package qdot
 import qdot.backend.IBMQBackend
 import qdot.circuit.Circuit
+import qdot.compiler.QASMCompiler
 import qdot.gate
 import qdot.gate.*
 
@@ -12,15 +13,14 @@ import java.io.{BufferedReader, InputStreamReader}
 
   val circuit1 = new Circuit[2](List())
   val superpos = circuit1.add(Hadamard[2](0))
-  print(superpos.gateSeq)
   val bellState = superpos.add(CNOT[2](0, 1))
-  print(bellState.gateSeq)
   //val invalid = bellState.add(CNOT[2](2,3))
+  QASMCompiler.toQASM(bellState)
 
-//  val ibmq = new IBMQBackend
-//  val apiStr = "123"
-//  val qasmFile = "src/main/qasm/BellState.qasm"
-//  val result = ibmq.submitQASMToIBMQ(apiStr, qasmFile)
-//  print(result)
+  val ibmq = new IBMQBackend
+  val apiStr = "123"
+  val qasmFile = "src/main/qasm/data.qasm"
+  val result = ibmq.submitQASMToIBMQ(apiStr, qasmFile)
+  print(result)
 
 }
