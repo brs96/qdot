@@ -6,9 +6,10 @@ import scala.compiletime.package$package.error
 class Hadamard(wire: Int) extends Gate {
   val name = "h"
   val wires = List(wire)
+  val params = List.empty[Int]
 }
 
 
 object Hadamard {
-  inline def apply[N <: Int](inline wire: Int) = inline if (wire < valueOf[N]) new Hadamard(wire) else error("Hadamard Compile time creation dimension error")
+  def apply[N <: Int](wire: Int) = new Hadamard(wire)
 }

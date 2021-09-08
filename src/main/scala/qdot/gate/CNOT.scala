@@ -5,6 +5,7 @@ import scala.compiletime.package$package.error
 class CNOT(control: Int, target: Int) extends Gate {
   val name = "cx"
   val wires = List(control, target)
+  val params = List.empty[Int]
 }
 
 object CNOT {

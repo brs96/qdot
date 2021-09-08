@@ -8,5 +8,7 @@ class Circuit[N <: Int](ops: List[Op]) {
 
   def add(op: Op): Circuit[N] = Circuit[N](opSeq ++ List(op))
 
+  def add(circuit: Circuit[N]): Circuit[N] = Circuit[N](opSeq ++ circuit.opSeq)
+
 }
 

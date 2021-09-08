@@ -1,5 +1,6 @@
 package qdot.gate
 
-class Measurement(val wire: Int) extends Op {
+class Measurement(wire: Int) extends Op {
   val name = "measure"
+  val toQASM: String = s"${name} q[${wire}] -> c[${wire}];\n"
 }

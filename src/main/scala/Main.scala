@@ -1,8 +1,8 @@
 //package qdot
+import qdot.algorithm.QFT
 import qdot.backend.IBMQBackend
 import qdot.circuit.Circuit
-import qdot.compiler.QASMCompiler
-import qdot.gate
+import qdot.compiler.{QASMCompiler, compilerMacros}
 import qdot.gate.*
 
 import java.util.Properties
@@ -16,7 +16,11 @@ import java.io.{BufferedReader, InputStreamReader}
   val bellState = superpos.add(CNOT[2](0, 1))
   val bellStateMeasured = bellState.add(Measurement(0)).add(Measurement(1))
   //val invalid = bellState.add(CNOT[2](2,3))
-  QASMCompiler.toQASM(bellStateMeasured)
+
+  val circuit2 = new Circuit[4](List())
+  val withQFT = circuit2.add(QFT[4](4))
+  val qftMeasured = withQFT.add(Measurement(0)).add(Measurement(1)).add(Measurement(2)).add(Measurement(3))
+  QASMCompiler.toQASM(qftMeasured, 4)
 
   val ibmq = new IBMQBackend
   val apiStr = "123"
