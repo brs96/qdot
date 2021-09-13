@@ -11,16 +11,12 @@ import java.io.{BufferedReader, InputStreamReader}
 
 @main def hello: Unit = {
 
-  val circuit1 = new Circuit[2](List())
-  val superpos = circuit1.add(Hadamard[2](0))
-  val bellState = superpos.add(CNOT[2](0, 1))
-  val bellStateMeasured = bellState.add(Measurement(0)).add(Measurement(1))
-  //val invalid = bellState.add(CNOT[2](2,3))
-
-  val circuit2 = new Circuit[4](List())
-  val withQFT = circuit2.add(QFT[4](4))
-  val qftMeasured = withQFT.add(Measurement(0)).add(Measurement(1)).add(Measurement(2)).add(Measurement(3))
-  QASMCompiler.toQASM(qftMeasured, 4)
+  val qubits = new Circuit[3](List())
+  val init = qubits.add(UGate(0,0,0,0)).add(Hadamard[3](1)).add(CNOT[3](1,2))
+  val aliceEntangle = init.add(CNOT[3](0,1)).add(Hadamard[3](0))
+  val teleport = aliceEntangle.add(Measurement(0)).add(Measurement(1)).add(CNOT[3](1,2)).add(CZ(0,2))
+  val BobResult = teleport.add(Measurement(2))
+  QASMCompiler.toQASM(BobResult, 3)
 
   val ibmq = new IBMQBackend
   val apiStr = "123"

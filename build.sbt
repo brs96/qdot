@@ -8,5 +8,7 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies ++= Seq("com.novocode" % "junit-interface" % "0.11" % "test")
+    libraryDependencies ++= Seq("com.novocode" % "junit-interface" % "0.11" % "test",
+//        "org.typelevel" %% "spire" % "0.14.1",       Does not compile with Scala3 yet
+        "org.apache.commons" % "commons-math3" % "3.6.1")
 )
