@@ -18,7 +18,11 @@ object QASMCompiler {
 
   //TODO Compile time reflection for N <: Int N-String
   def initQASM[N <: Int](circuit: Circuit[N], dim: Int): String = {
-    s"OPENQASM 2.0;\ninclude \"qelib1.inc\";\nqreg q[${dim.toString}];\ncreg c[${dim.toString}];\n"
+    s"OPENQASM 2.0;\ninclude \"qelib1.inc\";\nqreg q[${dim.toString}];\n" ++ cregList(dim)
+  }
+
+  def cregList(dim: Int): String = {
+    (0 to dim-1).toList.foldLeft("")((str, nextCreg) => str ++ s"creg c$nextCreg[1];\n")
   }
 
   def parseCircuit(circuit: Circuit[_], writer: PrintWriter) = {

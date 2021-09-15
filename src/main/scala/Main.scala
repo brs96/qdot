@@ -1,5 +1,5 @@
 //package qdot
-import qdot.algorithm.QFT
+import qdot.algorithm.{BernsteinVazirani, QFT}
 import qdot.backend.IBMQBackend
 import qdot.circuit.Circuit
 import qdot.compiler.{QASMCompiler, compilerMacros}
@@ -11,12 +11,9 @@ import java.io.{BufferedReader, InputStreamReader}
 
 @main def hello: Unit = {
 
-  val qubits = new Circuit[3](List())
-  val init = qubits.add(UGate(0,0,0,0)).add(Hadamard[3](1)).add(CNOT[3](1,2))
-  val aliceEntangle = init.add(CNOT[3](0,1)).add(Hadamard[3](0))
-  val teleport = aliceEntangle.add(Measurement(0)).add(Measurement(1)).add(CNOT[3](1,2)).add(CZ(0,2))
-  val BobResult = teleport.add(Measurement(2))
-  QASMCompiler.toQASM(BobResult, 3)
+  val bvcircuit = BernsteinVazirani(List(1,1,1,0,1,0,0,0), 8)
+  val bitString = bvcircuit.add(Measurement(0)).add(Measurement(1)).add(Measurement(2)).add(Measurement(3)).add(Measurement(4)).add(Measurement(5)).add(Measurement(6)).add(Measurement(7))
+  QASMCompiler.toQASM(bitString, 8)
 
   val ibmq = new IBMQBackend
   val apiStr = "123"

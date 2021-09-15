@@ -6,7 +6,3 @@ class CPhase(rootOfUnity: Int, control: Int, target: Int) extends Gate {
   val wires = List(control, target)
   val params = List(rootOfUnity).map(i => "pi/" ++ math.pow(2,i-1).toInt.toString)
 }
-
-object CPhase {
-  def apply[N <: Int](phase: Int, control: Int, target: Int) = new CPhase(phase, control, target)
-}

@@ -1,6 +1,6 @@
 package qdot.circuit
 
-import qdot.gate.{Gate, Op, Qubit}
+import qdot.gate.{Gate, Op}
 
 class Circuit[N <: Int](ops: List[Op]) {
 
