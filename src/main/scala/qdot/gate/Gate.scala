@@ -9,4 +9,5 @@ trait Gate extends Op {
     } else {
       s"${name}(${params.foldLeft("")((paramSeq, nextParam) => paramSeq ++ s"$nextParam,").dropRight(1)}) ${wires.foldLeft("")((wireSeq, nextWire) => wireSeq ++ s"q[$nextWire],").dropRight(1) ++ ";\n"}"
     }
+  def inverse: Gate
 }

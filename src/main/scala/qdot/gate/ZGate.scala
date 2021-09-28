@@ -4,4 +4,5 @@ class ZGate(wire: Int) extends Gate {
   val name = "z"
   val wires = List(wire)
   val params = List()
+  lazy val inverse = ZGate(wire)
 }
