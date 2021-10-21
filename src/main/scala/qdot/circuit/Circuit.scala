@@ -1,23 +1,20 @@
 package qdot.circuit
 
-import qdot.gate.{CustomGate, Gate, Measurement, Op}
+import qdot.gate.{CustomGate, Unitary, Measurement, Op, Swap, Qubit}
 
-import scala.reflect.ClassTag
+import scala.compiletime.ops.int.+
 
-class Circuit[N <: Int](ops: List[Op], customGates: List[CustomGate] = List()) {
-
-  val customGateSeq: List[CustomGate] = customGates
+class Circuit[N <: Int](ops: List[Op], val qubits: List[Qubit]) {
 
   val opSeq: List[Op] = ops
 
-  def add(op: Op): Circuit[N] = { op match
-    case op: CustomGate => Circuit[N](opSeq ++ List(op), (customGateSeq++List(op)).groupBy(_.name).map(_._2.head).toList)
-    case op: Op => Circuit[N](opSeq ++ List(op), customGateSeq)
-  }
+  def add(op: Op): Circuit[N] = Circuit[N](opSeq ++ List(op), qubits)
 
-  def add(circuit: Circuit[N]): Circuit[N] = Circuit[N](opSeq ++ circuit.opSeq, (customGateSeq++circuit.customGateSeq).groupBy(_.name).map(_._2.head).toList)
+  def add(operations: List[Op]): Circuit[N] = Circuit[N](opSeq ++ operations, qubits)
 
-  def measureAll(dim: Int): Circuit[N] = Circuit[N](opSeq ++ (0 to dim-1).toList.map(wire => Measurement(wire)), customGateSeq)
+  def add[T <: Circuit[N]](circuit: T): Circuit[N] = Circuit[N](opSeq ++ circuit.opSeq, qubits)
+
+  def measureAll(): Circuit[N] = Circuit[N](opSeq ++ qubits.map(Measurement(_)), qubits)
 
 }
 

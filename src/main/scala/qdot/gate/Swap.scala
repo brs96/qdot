@@ -1,6 +1,6 @@
 package qdot.gate
 
-class Swap(wire1: Int, wire2: Int) extends Gate {
+class Swap(wire1: Qubit, wire2: Qubit) extends NativeGate {
   val name = "swap"
   val wires = List(wire1, wire2)
   val params = List()

@@ -1,6 +1,6 @@
 package qdot.gate
 
-class CNOT(control: Int, target: Int) extends Gate {
+class CNOT(control: Qubit, target: Qubit) extends NativeGate {
   val name = "cx"
   val wires = List(control, target)
   val params = List.empty[Int]

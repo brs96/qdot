@@ -1,6 +1,6 @@
 package qdot.gate
 
-class XGate(wire: Int) extends Gate {
+class XGate(wire: Qubit) extends NativeGate {
   val name = "x"
   val wires = List(wire)
   val params = List()

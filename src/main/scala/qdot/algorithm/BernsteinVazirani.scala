@@ -1,18 +1,19 @@
 package qdot.algorithm
 
 import qdot.circuit.Circuit
-import qdot.gate.{Hadamard, Op, UGate, ZGate}
+import qdot.gate.{Hadamard, Measurement, NativeGate, Op, Qubit, UGate, ZGate}
 
 
-class BernsteinVazirani[N <: Int](ops: List[Op]) extends Circuit[N](ops)
+class BernsteinVazirani[N <: Int](ops: List[Op], wires: List[Qubit]) extends Circuit[N](ops, wires)
 
 object BernsteinVazirani {
 
-  def apply[N <: Int](bitString: List[Int], dim: Int): BernsteinVazirani[N] = {
-    val wires = (0 to dim-1).toList
-    val hadamardMap = wires.map(wire => Hadamard(wire))
-    val bitStringOracle = bitString.zipWithIndex.map((bit,index) => if (bit == 0) UGate(0,0,0,index) else ZGate(index))
-    new BernsteinVazirani[N](hadamardMap ++ bitStringOracle ++ hadamardMap)
+  def apply[N <: Int](bitString: List[Int], wires: List[Qubit]): BernsteinVazirani[N] = {
+    //val wires = (0 to dim-1).toList.map(Qubit(_))
+    val hadamardMap: List[Hadamard] = wires.map(qubit => Hadamard(qubit))
+    val bitStringOracle: List[NativeGate] = bitString.zipWithIndex.map(pair => if (pair._1 == 0) UGate(0,0,0,wires(pair._2)) else ZGate(wires(pair._2)))
+    val measurements: List[Measurement] = wires.map(Measurement(_))
+    new BernsteinVazirani[N](hadamardMap ++ bitStringOracle ++ hadamardMap ++ measurements, wires)
   }
 
 }

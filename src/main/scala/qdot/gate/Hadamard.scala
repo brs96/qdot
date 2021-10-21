@@ -1,6 +1,6 @@
 package qdot.gate
 
-class Hadamard(wire: Int) extends Gate {
+class Hadamard(wire: Qubit) extends NativeGate {
   val name = "h"
   val wires = List(wire)
   val params = List.empty[Int]
