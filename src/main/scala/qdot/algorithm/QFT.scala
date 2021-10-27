@@ -6,7 +6,7 @@ import qdot.gate.{CPhase, Unitary, Hadamard, Op, Swap, Qubit, NativeGate}
 import scala.math.{Pi, pow}
 
 class QFT[N <: Int](gates: List[Unitary], wires: List[Qubit]) extends Circuit[N](gates, wires) {
-  def inverse: Circuit[N] = Circuit[N](gates.reverse, wires)
+  def inverse: Circuit[N] = Circuit[N](gates.reverse.map(_.inverse), wires)
 }
 
 object QFT {
