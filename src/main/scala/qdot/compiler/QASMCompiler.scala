@@ -8,7 +8,8 @@ import scala.quoted.Type
 
 object QASMCompiler {
 
-  def toQASM(circuit: Circuit[_], dim: Int) = {
+  def toQASM(circuit: Circuit[_]) = {
+    val dim = circuit.dim
     val writer = new PrintWriter(new File("src/main/qasm/data.qasm"))
     initQASM(dim, writer)
     parseCircuit(circuit, writer)

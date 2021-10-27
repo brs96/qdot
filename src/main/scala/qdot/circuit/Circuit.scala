@@ -6,6 +6,7 @@ import scala.compiletime.ops.int.+
 
 class Circuit[N <: Int](ops: List[Op], val qubits: List[Qubit]) {
 
+  val dim = qubits.length
   val opSeq: List[Op] = ops
 
   def add(op: Op): Circuit[N] = Circuit[N](opSeq ++ List(op), qubits)

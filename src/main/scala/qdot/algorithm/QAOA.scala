@@ -33,7 +33,7 @@ class QAOA(graph: List[List[Boolean]], ibmq: IBMQBackend) {
 
   def executeQAOACircuit(mixingParams: List[Double], costParams: List[Double]): Double = {
     val init = constructQAOA(mixingParams, costParams)
-    QASMCompiler.toQASM(init, dim)
+    QASMCompiler.toQASM(init)
     val result = ibmq.submitQASMToIBMQ
     val parsed = ibmq.parseIBMQOutput(result)
     maxCutBitStrExpectation(parsed)
@@ -50,10 +50,11 @@ class QAOA(graph: List[List[Boolean]], ibmq: IBMQBackend) {
     }
     //Default epsilon 1E-05
     val approxF = ApproximateGradientFunction(qaoaCircuit, 0.01)
-    //LBFGS DOES NOT CONVERGE IN QISKIT
+    //LBFGS DOES NOT CONVERGE IN QISKIT, COBYLA CONVERGES
     val lbfgs = new LBFGS[DenseVector[Double]](maxIter=10, m=5)
 
-    val optimumParams: DenseVector[Double] = lbfgs.minimize(approxF, DenseVector((mixingInit++costInit).toArray))
+    val optimumParams: DenseVector[Double] = breeze.optimize.minimize(approxF, DenseVector((mixingInit++costInit).toArray))
+    //val optimumParams: DenseVector[Double] = lbfgs.minimize(approxF, DenseVector((mixingInit++costInit).toArray))
 
     (optimumParams.toArray.slice(0, mixingParamLength).toList, optimumParams.toArray.slice(mixingParamLength, paramLegnth).toList)
   }

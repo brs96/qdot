@@ -7,19 +7,14 @@ Qdot is a Scala 3 library (QASM-transpiler) that allows Scala/Java developers
 write native quantum/hybrid programs.
 
 ## Motivations
-1. Compile-time correctness. This becomes particularly important as size of hybrid programs increases,
-Qdot aims to leverage Scala's robust type system for compile time checks.
 
+1. Run hybrid programs on JVM directly, by sending transpiled QASM to quantum computers directly through IBM qiskit python. Currnet impl include: quantum Fourier transform/phase estimation, QAOA.
 
-2. Run hybrid programs on JVM directly, by sending transpiled QASM to quantum computers directly through IBM qiskit python.
-Basic classical simulation will be implemented. Optimization will be minimal.
+2. Leverage Scala syntax + type system for concise and correct programs.
 
-
-3. Allow concise, expressive and intuitive quantum/hybrid programs by leveraging Scala syntax and it's static type system.
-
+3. Compile-time checks - which becomes particularly important as size of hybrid programs increases. To be implemented with Scala3 macros.
 
 For any question please ask in #qdot channel in http://discord.unitary.fund/
-
 
 ## sbt project compiled with Scala 3
 
@@ -32,4 +27,4 @@ For more information on the sbt-dotty plugin, see the
 
 To run written quantum programs on IBMQ, you will need to have Python and Qiskit install
 Install qiskit with `pip install qiskit`, use a new separate environment if you wish (e.g `conda create -n ENV_NAME python=3` and `conda activate ENV_NAME`)
-You need to provide you IBMQ api token to our `scala.qdot.backend.IBMQBackend.submitQASMToIBMQ` method.
+You need to provide you IBMQ api token to `scala.qdot.backend.IBMQBackend` class.
