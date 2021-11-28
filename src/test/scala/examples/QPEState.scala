@@ -14,7 +14,7 @@ class QPEState {
 
     //theta = 1/3
     def cT2(c: Qubit, t: List[Qubit]): Unitary = CPhase(2*Pi/3, c, t.head)
-    val qpe2 = QPE(Qubit.listOf(6), cT2, XGate(Qubit("eigenstate")))
+    val qpe2 = QPE(Qubit.listOf(10), cT2, XGate(Qubit("eigenstate")))
   }
 
 }

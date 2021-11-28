@@ -9,7 +9,6 @@ class BernsteinVazirani[N <: Int](ops: List[Op], wires: List[Qubit]) extends Cir
 object BernsteinVazirani {
 
   def apply[N <: Int](bitString: List[Int], wires: List[Qubit]): BernsteinVazirani[N] = {
-    //val wires = (0 to dim-1).toList.map(Qubit(_))
     val hadamardMap: List[Hadamard] = wires.map(qubit => Hadamard(qubit))
     val bitStringOracle: List[NativeGate] = bitString.zipWithIndex.map(pair => if (pair._1 == 0) UGate(0,0,0,wires(pair._2)) else ZGate(wires(pair._2)))
     val measurements: List[Measurement] = wires.map(Measurement(_))

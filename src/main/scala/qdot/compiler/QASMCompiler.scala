@@ -27,7 +27,7 @@ object QASMCompiler {
   }
 
   def parseCircuit(circuit: Circuit[_], writer: PrintWriter) = {
-    circuit.opSeq.map(op => writer.write(buildQASM(op, circuit.qubits)))
+    circuit.ops.map(op => writer.write(buildQASM(op, circuit.qubits)))
   }
 
   def buildQASM(op: Op, qubits: List[Qubit]): String = op match

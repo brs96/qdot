@@ -25,10 +25,11 @@ class IBMQBackend {
   }
 
   def parseIBMQOutput(ibmqOutput: String): Map[List[Int], Int] = {
-    print("The ibmqOutput Str is: " + ibmqOutput)
     val allResult = ibmqOutput.filterNot("{}' \n".toSet).split(",")
     val countMap = allResult.map(bitStrWithCount => bitStrWithCount.split(":"))
       .map(strCountPair => (strCountPair.head.split("").map(_.toInt).toList.reverse, strCountPair(1).toInt)).toMap
-    ListMap(countMap.toSeq.sortWith(_._2 > _._2):_*)
+    val countMapSorted = ListMap(countMap.toSeq.sortWith(_._2 > _._2):_*)
+    print("ibmqOutput sorted is: " + countMapSorted.toString())
+    countMapSorted
   }
 }

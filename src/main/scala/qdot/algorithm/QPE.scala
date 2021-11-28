@@ -18,8 +18,8 @@ object QPE {
     val cUnitaryMap = digits.zipWithIndex.reverse.map(control => List.fill(pow(2, numDigits-1-control._2).toInt)(cUnitary(control._1, eigenState.wires))).flatten
     val inverseQFT = QFT[M](digits).inverse
     val measureDigits = digits.map(Measurement(_))
-    val circuit = Circuit[N](hadamardMap ++ List(eigenState) ++ cUnitaryMap, digits ++ eigenState.wires).add(inverseQFT.opSeq).add(measureDigits)
+    val circuit = Circuit[N](hadamardMap ++ List(eigenState) ++ cUnitaryMap, digits ++ eigenState.wires).add(inverseQFT.ops).add(measureDigits)
 
-    new QPE(circuit.opSeq, circuit.qubits)
+    new QPE(circuit.ops, circuit.qubits)
   }
 }

@@ -1,5 +1,4 @@
 package qdot.gate
-//import org.apache.commons.math3.complex._
 
 class UGate(theta: Double, phi: Double, lambda: Double, wire: Qubit) extends NativeGate {
   val name = "u3"

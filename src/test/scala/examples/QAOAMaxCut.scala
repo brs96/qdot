@@ -15,8 +15,8 @@ class QAOAMaxCut {
     val opt = exampleExp.optimize(List(2.0), List(2.0))
     print(opt)
     print("\n")
-    val optimumRUn = exampleExp.executeQAOACircuit(opt._1, opt._2)
-    print(optimumRUn)
+    val optimumRun = exampleExp.executeQAOACircuit(opt._1, opt._2)
+    print(optimumRun)
   }
 
 }

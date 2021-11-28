@@ -7,9 +7,10 @@ import qdot.gate.{CNOT, Hadamard, Measurement, Qubit}
 class GHZState {
 
   @Test def buildGHZState: Unit = {
-    val init = Circuit[3](List(), Qubit.listOf(3))
-    val superpos = init.add(Hadamard(init.qubits(0)))
-    val ghzState = superpos.add(CNOT(init.qubits(0), init.qubits(1))).add(CNOT(init.qubits(1),init.qubits(2)))
+    val qubits = Qubit.listOf(3)
+    val init = Circuit[3](List(), qubits)
+    val superpos = init.add(Hadamard(qubits(0)))
+    val ghzState = superpos.add(CNOT(qubits(0), qubits(1))).add(CNOT(qubits(1),qubits(2)))
     val ghzStateMeasured = ghzState.measureAll()
   }
 
